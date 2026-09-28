@@ -1,3 +1,17 @@
 PANCAKE_POS_API_KEY=your_api_key_here
 PANCAKE_POS_SHOP_ID=your_shop_id_here
 MCP_AUTH_TOKEN=optional_auth_token
+
+# OpenAI Ads CAPI for shop 430426051 (server-only; see docs/openai-ads-conversions.md)
+# To activate, PANCAKE_POS_SHOP_ID must also equal 430426051.
+OPENAI_ADS_ENABLED=false
+OPENAI_ADS_PIXEL_ID=
+OPENAI_ADS_CAPI_KEY=
+PANCAKE_ADS_WEBHOOK_TOKEN=
+# MineFlow web orders require conversion_context from a trusted backend adapter.
+OPENAI_ADS_ACTION_SOURCE=web
+# Actual customer-facing checkout/confirmation URL, not the MineFlow admin URL.
+OPENAI_ADS_SITE_URL=
+OPENAI_ADS_VALIDATE_ONLY=false
+# Enable only after approving customer-data use and reviewing consent requirements.
+OPENAI_ADS_MATCHING_ENABLED=false

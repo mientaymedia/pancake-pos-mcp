@@ -15,6 +15,12 @@ describe("Worker fetch handler", () => {
     expect(res.status).toBe(404);
   });
 
+  it("keeps the conversions receiver disabled until configured", async () => {
+    const res = await SELF.fetch("http://localhost/webhooks/pancake/openai-ads", { method: "POST" });
+    expect(res.status).toBe(503);
+    expect(await res.json()).toEqual({ result: "disabled" });
+  });
+
   it("returns CORS headers on OPTIONS preflight", async () => {
     const res = await SELF.fetch("http://localhost/mcp", {
       method: "OPTIONS",

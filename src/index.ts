@@ -2,6 +2,7 @@ import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 import { loadConfig } from "./config.js";
 import { PancakeHttpClient } from "./api-client/pancake-http-client.js";
 import { createServer } from "./server.js";
+import { CONVERSIONS_PATH, handlePancakeConversion } from "./server/pancake-conversions.js";
 
 const args = process.argv.slice(2);
 const transportMode = args.includes("--http") ? "http" : "stdio";
@@ -39,6 +40,10 @@ if (transportMode === "stdio") {
     port: config.PORT,
     async fetch(req: Request): Promise<Response> {
       const url = new URL(req.url);
+
+      if (url.pathname === CONVERSIONS_PATH) {
+        return handlePancakeConversion(req, process.env);
+      }
 
       if (url.pathname === "/health") {
         return new Response(JSON.stringify({ status: "ok", transport: "streamable-http" }), {
