@@ -1,6 +1,7 @@
 import { loadConfig } from "./config.js";
 import { PancakeHttpClient } from "./api-client/pancake-http-client.js";
 import type { PancakeConfig } from "./config.js";
+import { CONVERSIONS_PATH, handlePancakeConversion } from "./server/pancake-conversions.js";
 
 const CORS_HEADERS = {
   "Access-Control-Allow-Origin": "*",
@@ -70,6 +71,10 @@ export default {
     env: Record<string, unknown>,
   ): Promise<Response> {
     const url = new URL(req.url);
+
+    if (url.pathname === CONVERSIONS_PATH) {
+      return handlePancakeConversion(req, env);
+    }
 
     // CORS preflight
     if (req.method === "OPTIONS") {
